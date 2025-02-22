@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI BLOG GADGET</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+
+        .navbar {
+            background-color: #1a1a1a;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            z-index: 10000;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important;
+        }
+
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .navbar-toggler-icon {
+            filter: invert(1);
+        }
+
+        .navbar-collapse {
+            text-align: center;
+        }
+
+        @media (max-width: 991px) {
+            .navbar-nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .navbar-collapse.collapse.show {
+                background-color: rgba(77, 175, 255, 0.8);
+                /* Blue background for dropdown */
+                max-height: 500px;
+                /* Arbitrary max-height */
+                opacity: 1;
+                transition: max-height 0.3s ease-in-out, opacity 0.2s ease;
+            }
+
+            .navbar-collapse {
+                max-height: 0;
+                opacity: 0;
+                transition: max-height 0.3s ease-in-out, opacity 0.2s ease;
+            }
+
+            .navbar-collapse.collapse.show .nav-link {
+                color: white !important;
+                /* White text color */
+            }
+        }
+
+        .footer {
+            background-color: #1a1a1a;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            margin-top: 130px;
+        }
+
+        /*-------------------------------------------------------content */
+        .jumbotron {
+            background-color: rgba(77, 175, 255, 0.8);
+            color: #fff;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .jumbotron h1 {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .jumbotron p {
+            font-size: 18px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 40px 0 20px;
+            text-align: center;
+            color: rgba(77, 175, 255, 0.8);
+        }
+
+        .card {
+            margin: 20px 0;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            /* Add a background color for clarity */
+        }
+
+        .card img {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            height: 240px;
+            /* Fixed height for images */
+            width: 100%;
+            /* Ensure the image takes full width */
+            object-fit: cover;
+            /* Ensures images fit nicely */
+            margin-bottom: 0;
+            /* Remove any margin below the image */
+        }
+
+        .card-body {
+            /* Makes the card body take up remaining space */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* Vertically center the content */
+            align-items: center;
+            /* Horizontally center the content */
+            padding: 20px;
+            height: 100%;
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+            /* Ensure no extra margins */
+            padding: 0;
+            /* Ensure no extra padding */
+            min-height: 60px;
+        }
+
+        .card-text {
+            font-size: 16px;
+            color: #666;
+            margin: 0;
+            /* Ensure no extra margins */
+            padding: 0;
+            /* Ensure no extra padding */
+            min-height: 100px; 
+        }
+        .row {
+            row-gap : 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" style="
+            font-weight: bold; 
+            font-size: 24px; 
+            font-family: 'Courier New', Courier, monospace; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            color: #4dafff !important; 
+            text-shadow: 1px 1px 4px rgba(77, 175, 255, 0.8);">
+            <i>AI Chronicles</i>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html" target="_blank">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="project_basics.html" target="_blank">Basics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="project_tool.html" target="_blank">Tools</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="project_extension.html" target="_blank">Extensions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="project_gadget.html" target="_blank">Gadgets</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--------------------------------------------------------------- jumbotron -->
+
+    <div class="jumbotron">
+        <h1 style="margin-top : 50px;">AI Gadgets</h1>
+        <p>Discover the latest AI-powered gadgets that are transforming industries and improving daily life.</p>
+    </div>
+
+    <!-------------------------------------------------- Main Content -->
+
+    <div class="container">
+        <!-- Introduction -->
+        <section>
+            <h2 class="section-title">Introduction to AI Gadgets</h2>
+            <p style="text-align: center;">AI gadgets are smart devices powered by artificial intelligence that enhance
+                functionality, convenience, and efficiency. From smart home assistants to wearable health monitors,
+                these gadgets are transforming industries and improving our daily lives. Explore the latest AI-powered
+                gadgets that are pushing the boundaries of technology.</p>
+        </section>
+
+        <!-- Popular AI Gadgets -->
+        <section>
+            <h2 class="section-title">Popular AI Gadgets Launched Recently</h2>
+            <div class="row mt-5 g-4 align-items-stretch">
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="g-1.png" class="card-img-top" alt="Meta Quest 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Meta Quest 3</h5>
+                            <p class="card-text">A mixed-reality headset with AI-powered hand and eye tracking,
+                                enhancing immersive experiences for gaming.<br><b>Status : </b>Available.
+                                <br><b>Price:</b> Starting at $499.<br><b>Where to Buy: </b>Meta Store, Amazon, Best
+                                Buy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="g-2.webp" class="card-img-top" alt="Google Pixel 8 Pro">
+                        <div class="card-body">
+                            <h5 class="card-title">Google Pixel 8 Pro</h5>
+                            <p class="card-text">A smartphone with an AI-powered camera and Tensor G3 chip, offering
+                                advanced photography and seamless performance.<br><b>Status : </b>Available.
+                                <br><b>Price:</b> Starting at $999.<br><b>Where to Buy: </b> Google Store, Amazon, Best
+                                Buy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="g-3.jpg" class="card-img-top" alt="Ray-Ban Meta Smart Glasses">
+                        <div class="card-body">
+                            <h5 class="card-title">Ray-Ban Meta Smart Glasses</h5>
+                            <p class="card-text">AI-powered smart glasses with built-in cameras, voice assistant, and
+                                real-time connectivity.<br><b>Status : </b>Available. <br><b>Price:</b> Starting at
+                                $299.<br><b>Where to Buy: </b> Ray-Ban Store, Amazon.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="g-4.webp" class="card-img-top" alt="Sony A7R V">
+                        <div class="card-body">
+                            <h5 class="card-title">Sony A7R V</h5>
+                            <p class="card-text">A mirrorless camera with AI-powered autofocus and 61MP high-resolution
+                                sensor.<br><b>Status : </b>Available. <br><b>Price:</b> Starting at $3,898.<br><b>Where
+                                    to Buy: </b> Sony Store, B&H Photo, Amazon.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="g-5.jpg" class="card-img-top" alt="Withings U-Scan">
+                        <div class="card-body">
+                            <h5 class="card-title">Withings U-Scan</h5>
+                            <p class="card-text">A smart urine analyzer for health monitoring (hydration, nutrition, and
+                                metabolic health). Syncs data with a mobile app for real-time insights and
+                                trends.<br><b>Status : </b>Available. <br><b>Price:</b> Starting at $499.<br><b>Where to
+                                    Buy: </b> Withings Store, Amazon.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="g-6.jpg" class="card-img-top" alt="LG OLED M3">
+                        <div class="card-body">
+                            <h5 class="card-title">LG OLED M3</h5>
+                            <p class="card-text">A wireless TV with AI-powered picture, sound optimization and
+                                AI-enhanced image and audio quality with 4K streaming.<br><b>Status : </b>Available.
+                                <br><b>Price:</b> Starting at $1613.<br><b>Where to Buy: </b> LG's Official Website,
+                                Flipcart, Ubuy India.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="g-7.jpg" class="card-img-top" alt="Rabbit R1">
+                        <div class="card-body">
+                            <h5 class="card-title">Rabbit R1</h5>
+                            <p class="card-text">A pocket-sized AI assistant for managing tasks and smart home devices.
+                                It has voice and touchscreen interface and is integrated with popular apps.<br><b>Status
+                                    : </b>Available. <br><b>Price:</b> Starting at $199.<br><b>Where to Buy: </b>
+                                Rabbit, Best Buy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="g-8.jpg" class="card-img-top" alt="Tado Smart Thermostat V3+">
+                        <div class="card-body">
+                            <h5 class="card-title">Tado Thermostat V3+</h5>
+                            <p class="card-text">AI-powered smart home energy system with temperature optimization,
+                                scheduling, and automation.<br><b>Status : </b>Available. <br><b>Price:</b> Starting at
+                                $250.<br><b>Where to Buy: </b> Tado website, Amazon, Home Depot.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="g-9.jpg" class="card-img-top" alt="LG CLOi">
+                        <div class="card-body">
+                            <h5 class="card-title">LG CLOi</h5>
+                            <p class="card-text">AI-powered home assistant robot for companionship and smart home
+                                control. It has Personalized recommendations also.<br><b>Status : </b>Available.
+                                <br><b>Price:</b> Starting at $1,500.<br><b>Where to Buy: </b> LG's Official
+                                Website,RobotLAB.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="g-10.png" class="card-img-top" alt="Dell XPS 13 2-in-1 Laptop with AI">
+                        <div class="card-body">
+                            <h5 class="card-title">Dell XPS 13 2-in-1 Laptop with AI</h5>
+                            <p class="card-text">AI-enhanced ultrabook with Snapdragon X-series processors.<br><b>Status
+                                    : </b>Available. <br><b>Price:</b> Starting at $1,299.<br><b>Where to Buy: </b> Dell
+                                official website, Amazon, Best Buy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="g-11.jpg" class="card-img-top" alt="Bose SoundLink Max">
+                        <div class="card-body">
+                            <h5 class="card-title">Bose SoundLink Max</h5>
+                            <p class="card-text">A portable AI-enhanced speaker offering high-quality audio and smart
+                                features. Have support for aptX Adaptive codec.<br><b>Status : </b>Available.
+                                <br><b>Price:</b> Starting at $499.<br><b>Where to Buy: </b> Bose official website,
+                                Amazon, Best Buy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="g-12.jpg" class="card-img-top" alt="Anker 757 PowerHouse Portable Power Station">
+                        <div class="card-body">
+                            <h5 class="card-title">Anker 757 PowerHouse Portable Power Station</h5>
+                            <p class="card-text">AI-enhanced battery and energy management solutions.<br><b>Status :
+                                </b>Available. <br><b>Price:</b> Starting at $499.<br><b>Where to Buy: </b> Amazon,
+                                Anker website, Walmart.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="g-13.avif" class="card-img-top"
+                            alt="Twelve South HiRise Wireless Charger with Find My">
+                        <div class="card-body">
+                            <h5 class="card-title">Twelve South HiRise Wireless Charger with Find My</h5>
+                            <p class="card-text">AI-enabled charger with built-in Apple Find My support.<br><b>Status :
+                                </b>Available. <br><b>Price:</b> Starting at $79.<br><b>Where to Buy: </b> Apple Store,
+                                Amazon, Twelve South website.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="g-14.jpg" class="card-img-top" alt=" Samsung Ballie">
+                        <div class="card-body">
+                            <h5 class="card-title"> Samsung Ballie - Smart Companion Robot</h5>
+                            <p class="card-text">A rolling AI-powered robot for home management. Voice-controlled
+                                assistant with home surveillance and security.<br><b>Status : </b>Not available.
+                                <br><b>Price:</b> To be announced.<br><b>Where to Buy: </b> South Korea and the United
+                                States.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="g-15.avif" class="card-img-top" alt="Amazon Astro">
+                        <div class="card-body">
+                            <h5 class="card-title"> Amazon Astro Home Security Robot</h5>
+                            <p class="card-text"> A home robot for security and entertainment. Would have Autonomous
+                                navigation and voice-controlled assistant.<br><b>Status : </b>Available.
+                                <br><b>Price:</b> Starting at $1,599.<br><b>Where to Buy: </b>Invitation-only in the
+                                U.S.; not available in India.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 AI Chronicles. All Rights Reserved.</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

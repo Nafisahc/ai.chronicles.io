@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI BLOG BASICS</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+
+        .navbar {
+            background-color: #1a1a1a;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            z-index: 10000;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important;
+        }
+
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .navbar-toggler-icon {
+            filter: invert(1);
+        }
+
+        .navbar-collapse {
+            text-align: center;
+        }
+
+        @media (max-width: 991px) {
+            .navbar-nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .navbar-collapse.collapse.show {
+                background-color: rgba(77, 175, 255, 0.8);
+                /* Blue background for dropdown */
+                max-height: 500px;
+                /* Arbitrary max-height */
+                opacity: 1;
+                transition: max-height 0.3s ease-in-out, opacity 0.2s ease;
+            }
+
+            .navbar-collapse {
+                max-height: 0;
+                opacity: 0;
+                transition: max-height 0.3s ease-in-out, opacity 0.2s ease;
+            }
+
+            .navbar-collapse.collapse.show .nav-link {
+                color: white !important;
+                /* White text color */
+            }
+        }
+
+        .footer {
+            background-color: #1a1a1a;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            margin-top: 130px;
+        }
+
+        .fas {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .arrow-icon {
+            font-size: 3rem;
+            color: #000000;
+            margin-bottom: 18px;
+        }
+
+        .step-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .step-box {
+            border: 1px solid #ddd;
+            padding: 35px 25px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            width: 80%;
+            margin-bottom: 20px;
+            background-color: rgba(77, 175, 255, 0.8);
+            color: white;
+            box-shadow: 2px 2px 8px gray;
+            transition: transform 0.3s ease, font-size 0.0s ease, background-color 0.0s, color 0.0s;
+            /* Smooth transition */
+        }
+
+        .step-box:hover {
+            transform: scale(1.1);
+            font-size: 1.2rem;
+            background-color: white;
+            color: rgba(77, 175, 255, 0.8);
+        }
+
+        .step-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .arrow-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        hr {
+            box-shadow: 8px 8px 15px rgba(77, 175, 255, 0.8);
+            margin: 80px;
+        }
+
+        .basics-p {
+            display: inline-block;
+            color: rgba(77, 175, 255, 0.8);
+            border: 1px solid #ddd;
+            margin-top: 45px;
+            margin-left: 42px;
+            margin-right: 42px;
+            padding: 35px 25px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 8px gray;
+            transition: transform 0.3s ease, font-size 0.0s ease, background-color 0.0s, color 0.0s;
+        }
+
+        .basics-p:hover {
+            transform: scale(1.1);
+            font-size: 1.2rem;
+            background-color: rgba(77, 175, 255, 0.8);
+            color: white;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-end;
+            margin-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .card {
+            margin: 20px;
+            width: 25rem;
+            height: 440px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 6px 6px 8px rgba(77, 175, 255, 0.8);
+        }
+
+        .middle-card {
+            align-self: flex-start;
+            margin-top: 30px;
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .card-text {
+            font-size: 18px;
+            margin-top: 20px;
+            line-height: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .card-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 90%;
+                height: auto;
+                margin-bottom: 20px;
+            }
+
+            .middle-card {
+                align-self: center;
+                margin-top: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-title {
+                font-size: 22px;
+            }
+
+            .card-text {
+                font-size: 16px;
+                line-height: 24px;
+            }
+        }
+
+        h4 {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .concept {
+            padding-left: 30px;
+            padding-right: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" style="
+        font-weight: bold; 
+        font-size: 24px; 
+        text-transform: uppercase; 
+        font-family: 'Courier New', Courier, monospace; 
+        letter-spacing: 2px; 
+        color: #4dafff !important; 
+        text-shadow: 1px 1px 4px rgba(77, 175, 255, 0.8);">
+            <i>AI Chronicles</i>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html" target="_blank">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="project_basics.html" target="_blank">Basics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="project_tool.html" target="_blank">Tools</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="project_extension.html" target="_blank">Extensions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="project_gadget.html" target="_blank">Gadgets</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- ----------------------------------------------------------------Basic of AI-------------------------------------- -->
+
+    <div style="margin-top : 90px; text-align: center; padding : 10px 50px;">
+        <h1 style="font-weight: bold; color : rgb(0, 0, 0); margin-bottom: 40px;">Basics of AI</h1>
+        <div class="basics-p">
+            <p>Artificial Intelligence (AI) refers to the development of machines and software that can perform tasks
+                that traditionally require human intelligence. These tasks include learning from experience (data),
+                recognizing patterns, making decisions, understanding language, and even perceiving the world through
+                vision or speech. AI mimics cognitive functions, making it a powerful tool in various fields such as
+                healthcare, finance, and entertainment.</p>
+        </div>
+    </div>
+    <hr>
+    <!-- ----------------------------------------------------------------Types of AI-------------------------------------- -->
+    <h2 class="text-center mb-5" style="font-size: 36px; font-weight: bold; color: rgb(0, 0, 0); margin-top: 50px;">
+        Types Of AI
+    </h2>
+    <div class="card-container pb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Narrow AI (Weak AI)</h5>
+                <p class="card-text">Narrow AI is designed to handle a specific task or a limited range of tasks. It is
+                    highly specialized and doesn't possess general intelligence or awareness. Examples include virtual
+                    assistants like Siri and Alexa, recommendation systems on platforms like Netflix, and autonomous
+                    vehicles. While Narrow AI can outperform humans in certain tasks, it operates within a constrained
+                    domain and cannot adapt beyond those tasks.</p>
+            </div>
+        </div>
+        <div class="card middle-card">
+            <div class="card-body">
+                <h5 class="card-title">General AI (Strong AI)</h5>
+                <p class="card-text">General AI refers to an AI that has the ability to understand, learn, and apply
+                    intelligence across a wide range of tasks, much like a human being. It can reason, solve problems,
+                    plan, learn from experience, and adapt to new situations. While General AI is a long-term goal for
+                    researchers, it has yet to be achieved. It's a more ambitious and broader form of intelligence that
+                    could potentially handle any intellectual task that humans can.</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Superintelligent AI</h5>
+                <p class="card-text">Superintelligent AI is a theoretical concept referring to an AI system that would
+                    surpass human intelligence in all aspects, including creativity, problem-solving, and social
+                    intelligence. If the idea of this AI gets developed, it could radically transform every industry,
+                    but it also presents risks related to control and alignment with human values. This level of AI does
+                    not yet exist and is the subject of significant philosophical and ethical debate.</p>
+            </div>
+        </div>
+    </div>
+    <!-- ----------------------------------------------------------------Key Concepts in ai-------------------------------------- -->
+    <h2 class="text-center mb-5" style="font-size : 36px; font-weight: bold; color : rgb(0, 0, 0); margin-top: 50px;">
+        Key Concepts In AI</h2>
+    <div class="concept">
+        <ul>
+            <li>
+                <h4>Machine Learning (ML)</h4>
+                Machine Learning (ML) is a branch of AI that allows computers to learn from data and improve their
+                performance without being explicitly programmed. Instead of following fixed instructions, ML algorithms
+                identify patterns and use them to make predictions or decisions. ML can be divided into three types:
+            </li><br>
+            <ul>
+                <li><b>Supervised Learning : </b> In this approach, the model is trained on labeled data, meaning that
+                    the input data comes with known outputs. The model learns to predict the correct output based on the
+                    input examples. A common example is spam email detection, where the algorithm learns from labeled
+                    "spam" and "not spam" emails.</li>
+                <li><b> Unsupervised Learning : </b> Here, the model is given data without explicit labels, and it must
+                    find patterns or structures within the data on its own. Clustering (grouping similar items together)
+                    and anomaly detection are common tasks in unsupervised learning. An example could be customer
+                    segmentation in marketing.</li>
+                <li> <b>Reinforcement Learning : </b> In reinforcement learning, an agent learns by interacting with an
+                    environment, taking actions, and receiving feedback in the form of rewards or penalties. Over time,
+                    the agent improves its performance by maximizing the cumulative reward. This type of learning is
+                    commonly used in robotics, gaming, and autonomous driving.</li>
+            </ul><br>
+            <li>
+                <h4> Deep Learning </h4>
+                Deep Learning is a specialized subset of Machine Learning that focuses on neural networks with many
+                layers, often referred to as deep neural networks. These networks can learn from large amounts of data
+                and automatically extract features, making them ideal for complex tasks like image and speech
+                recognition. Deep Learning is behind breakthroughs like self-driving cars, facial recognition software,
+                and voice assistants. The technology relies on large datasets and high computational power, and it's
+                capable of improving its performance with more data over time.
+            </li> <br>
+
+            <li>
+                <h4>Natural Language Processing (NLP)</h4> Natural Language Processing (NLP) enables computers to
+                understand, interpret, and generate human language. NLP bridges the gap between human communication and
+                computer understanding. It includes tasks such as speech recognition, language translation, sentiment
+                analysis, and chatbot interactions. NLP is widely used in virtual assistants (e.g., Siri, Alexa),
+                translation apps, and customer service automation. The challenge with NLP lies in understanding the
+                nuances of language, such as context, idioms, and slang, which require sophisticated algorithms and
+                large datasets.
+            </li><br>
+
+            <li>
+                <h4>Computer Vision </h4>Computer Vision enables machines to interpret and understand visual information
+                from the world, much like humans do. It allows AI systems to process and analyze images and videos to
+                extract useful insights. Applications of computer vision include facial recognition, object detection,
+                and medical image analysis. For example, AI-powered systems in healthcare can analyze X-rays and MRIs to
+                detect diseases like cancer. The field has made significant progress thanks to deep learning techniques,
+                but challenges remain in handling variations in lighting, angles, and visual obstructions.
+            </li>
+        </ul>
+    </div>
+    <!-- ----------------------------------------------------------------How AI Works-------------------------------------- -->
+    <hr>
+    <div class="container my-5">
+        <h2 class="text-center mb-5" style="font-size : 36px; font-weight: bold; color : rgb(0, 0, 0);">How AI Works
+        </h2>
+
+        <!-- Step 1: Data Collection -->
+        <div class="step-container">
+            <div class="step-box text-center">
+                <h4>Step 1: Data Collection</h4>
+                <p>The first step in any AI project is gathering data. The quality and quantity of data are crucial for
+                    training AI models. This data can come from various sources such as databases, sensors, or
+                    user-generated input. For instance, in image recognition, data could be thousands of labeled photos
+                    of objects.</p>
+            </div>
+
+            <!-- Arrow between Step 1 and Step 2 -->
+            <div class="arrow-container">
+                <i class="fas fa-arrow-down arrow-icon"></i>
+            </div>
+
+            <!-- Step 2: Data Preprocessing -->
+            <div class="step-box text-center">
+                <h4>Step 2: Data Preprocessing</h4>
+                <p>Before feeding data into an AI model, it needs to be cleaned and prepared. This involves removing any
+                    inconsistencies, handling missing values, and normalizing the data. Data preprocessing ensures that
+                    the model can learn effectively and is critical to the success of any AI project. For example, in
+                    text analysis, it might involve removing stopwords and stemming words to ensure the model can focus
+                    on the most important parts of the data.</p>
+            </div>
+
+            <!-- Arrow between Step 2 and Step 3 -->
+            <div class="arrow-container">
+                <i class="fas fa-arrow-down arrow-icon"></i>
+            </div>
+
+            <!-- Step 3: Model Building -->
+            <div class="step-box text-center">
+                <h4>Step 3: Model Building</h4>
+                <p>In this step, a machine learning algorithm or neural network model is selected. Depending on the
+                    task, different types of models are used—decision trees, support vector machines, or deep neural
+                    networks. The model is then "trained" using the preprocessed data, allowing it to learn patterns and
+                    relationships within the dataset.</p>
+            </div>
+
+            <!-- Arrow between Step 3 and Step 4 -->
+            <div class="arrow-container">
+                <i class="fas fa-arrow-down arrow-icon"></i>
+            </div>
+
+            <!-- Step 4: Training -->
+            <div class="step-box text-center">
+                <h4>Step 4: Training</h4>
+                <p>During training, the model is exposed to the data and iteratively adjusts its parameters to minimize
+                    errors in its predictions or decisions. Training involves running data through the model repeatedly
+                    and updating the model's internal parameters (such as weights in neural networks) until it can
+                    accurately predict outcomes. The effectiveness of the training process is often evaluated using a
+                    separate set of data known as the validation set.</p>
+            </div>
+
+            <!-- Arrow between Step 4 and Step 5 -->
+            <div class="arrow-container">
+                <i class="fas fa-arrow-down arrow-icon"></i>
+            </div>
+
+            <!-- Step 5: Testing and Evaluation -->
+            <div class="step-box text-center">
+                <h4>Step 5: Testing and Evaluation</h4>
+                <p>Once the model has been trained, it's time to test its performance on new, unseen data. The goal is
+                    to assess how well the model generalizes to new examples. Evaluation metrics depend on the task at
+                    hand—accuracy, precision, recall, and F1 score are commonly used for classification tasks, while
+                    mean squared error (MSE) is often used for regression problems.</p>
+            </div>
+
+            <!-- Arrow between Step 5 and Step 6 -->
+            <div class="arrow-container">
+                <i class="fas fa-arrow-down arrow-icon"></i>
+            </div>
+
+            <!-- Step 6: Deployment -->
+            <div class="step-box text-center">
+                <h4>Step 6: Deployment</h4>
+                <p>After testing and fine-tuning, the AI system is ready for deployment. This involves integrating the
+                    trained model into a real-world application, such as a chatbot in a customer service system or a
+                    recommendation engine on an e-commerce site. Deployment also involves continuous monitoring to
+                    ensure the system works as expected and to make adjustments if the data or environment changes over
+                    time.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 AI Chronicles. All Rights Reserved.</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
