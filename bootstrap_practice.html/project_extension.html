@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI BLOG EXTENSIONS</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        .navbar {
+            background-color: #1a1a1a;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            z-index: 10000;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important;
+        }
+
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .navbar-toggler-icon {
+            filter: invert(1);
+        }
+
+        .navbar-collapse {
+            text-align: center;
+        }
+
+        @media (max-width: 991px) {
+            .navbar-nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .navbar-collapse.collapse.show {
+                background-color: rgba(77, 175, 255, 0.8);
+                /* Blue background for dropdown */
+                max-height: 500px;
+                /* Arbitrary max-height */
+                opacity: 1;
+                transition: max-height 0.3s ease-in-out, opacity 0.2s ease;
+            }
+
+            .navbar-collapse {
+                max-height: 0;
+                opacity: 0;
+                transition: max-height 0.3s ease-in-out, opacity 0.2s ease;
+            }
+
+            .navbar-collapse.collapse.show .nav-link {
+                color: white !important;
+                /* White text color */
+            }
+        }
+
+        .intro h1 {
+            margin-top: 90px;
+            text-align: center;
+            margin-bottom: 35px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .intro p {
+            margin-left: 30px;
+            margin-right: 30px;
+            color: rgb(0, 0, 0);
+        }
+
+        .container-fluid {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .introduction {
+            padding: 10px;
+            line-height: 33px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            color: rgba(77, 175, 255, 0.8);
+        }
+
+        h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: rgba(77, 175, 255, 0.8);
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .container li {
+            margin-bottom: 15px;
+            color: rgb(0, 0, 0);
+        }
+
+        a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+        }
+
+        b {
+            color: rgba(77, 175, 255, 0.8);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            h3 {
+                font-size: 18px;
+            }
+
+            ul>li {
+                font-size: 14px;
+            }
+        }
+
+        .footer {
+            background-color: #1a1a1a;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            margin-top: 130px;
+        }
+
+        /* -------------------------------------------------------img dropdown */
+        .toggle-text {
+            color: rgba(77, 175, 255, 0.8);
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 16px;
+            display: inline-block;
+        }
+
+        .image-container {
+            display: none;
+            margin: 10px auto;
+            max-width: 90%;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .image-container img {
+            max-width: 90%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ------------------------------------ */
+
+        .sec {
+            margin-top: 40px;
+        }
+
+        .arrow {
+            display: block;
+            text-align: center;
+            font-size: 2rem;
+            color: rgba(77, 175, 255, 0.8);
+            margin: 10px auto;
+        }
+
+        .highlight-box {
+            padding: 20px;
+            border-left: 6px solid rgba(77, 175, 255, 0.8);
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .table th,
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .table th {
+            background-color: black;
+            text-align: center !important;
+            vertical-align: middle !important;
+            white-space: nowrap;
+            /* Prevents text from wrapping */
+        }
+
+        .table tbody tr:nth-child(odd) td {
+            background-color: rgba(77, 175, 255, 0.8);
+            color: white;
+        }
+
+        .table tbody tr:nth-child(even) td {
+            background-color: white;
+            color: black;
+        }
+
+        hr {
+            box-shadow: 10px 10px 20px rgba(77, 175, 255, 0.8);
+            margin: 50px;
+        }
+
+        .hr1 {
+            box-shadow: 10px 10px 20px rgba(77, 175, 255, 0.8);
+            margin-bottom: 0px;
+        }
+
+        .hr2 {
+            box-shadow: 10px 10px 20px rgba(77, 175, 255, 0.8);
+            margin-top: 0px;
+            margin-bottom: 70px;
+        }
+
+        /*--------------------------------------------------- flowchart */
+        .flowchart-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0px;
+            overflow-x: hidden;
+            /* Prevents horizontal scrolling */
+        }
+
+        .flowchart {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            padding: 2rem;
+            overflow: visible;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Center text */
+        .center {
+            color: black;
+            z-index: 1;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Common box styles - Larger standardized dimensions */
+        .box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            position: absolute;
+            z-index: 1;
+            font-size: 18px;
+            /* Increased font size */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            padding: 25px;
+            width: 350px;
+            /* Increased width */
+            height: 150px;
+            /* Increased height */
+            background-color: rgba(77, 175, 255, 0.8);
+            color: white;
+            transition: all 0.3s ease;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .box:hover {
+            background-color: rgba(77, 175, 255, 1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Positioning for desktop */
+        @media (min-width: 1024px) {
+            .flowchart {
+                margin: 100px auto;
+                position: relative;
+                height: 800px;
+            }
+
+            .top-green {
+                top: calc(50% - 270px);
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .bottom-green {
+                bottom: calc(50% - 270px);
+                left: 50%;
+                transform: translate(-50%, 50%);
+            }
+
+            .left-green {
+                left: calc(50% - 360px);
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .right-green {
+                right: calc(50% - 360px);
+                top: 50%;
+                transform: translate(50%, -50%);
+            }
+        }
+
+        /* Responsive layout for tablets */
+        @media (max-width: 1023px) {
+            .circle {
+                width: min(400px, 80vw);
+                height: min(400px, 80vw);
+            }
+
+            .box {
+                position: relative !important;
+                margin: 1.5rem auto;
+                transform: none;
+                left: auto;
+                right: auto;
+                top: auto;
+                bottom: auto;
+                width: min(350px, 90vw);
+                /* Match desktop width */
+                height: 150px;
+                /* Match desktop height */
+                text-align: center;
+            }
+
+            .flowchart {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 3rem 2rem;
+                height: auto;
+            }
+        }
+
+        /* Responsive layout for mobile */
+        @media (max-width: 767px) {
+            .box {
+                width: min(350px, 90vw);
+                /* Match desktop width */
+                height: 150px;
+                /* Match desktop height */
+                padding: 20px;
+                margin: 1rem auto;
+                font-size: 16px;
+                /* Slightly smaller font only for mobile */
+            }
+
+            .flowchart {
+                gap: 1rem;
+                padding: 2rem 1rem;
+            }
+        }
+
+        @media (max-width: 1023px) {
+            .arrow {
+                position: relative !important;
+                display: block;
+                margin: 10px auto;
+                text-align: center;
+            }
+        }
+
+        /* -------------------------------- */
+        html {
+            overflow-x: hidden !important;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" style="
+            font-weight: bold; 
+            font-size: 24px; 
+            font-family: 'Courier New', Courier, monospace; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            color: #4dafff !important; 
+            text-shadow: 1px 1px 4px rgba(77, 175, 255, 0.8);">
+            <i>AI Chronicles</i>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html" target="_blank">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="project_basics.html" target="_blank">Basics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="project_tool.html" target="_blank">Tools</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="project_extension.html" target="_blank">Extensions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="project_gadget.html" target="_blank">Gadgets</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!---------------------------------------- introduction-------- -->
+    <div class="intro container-fluid">
+        <h1>Introduction</h1>
+        <p>AI extensions are plugins, add-ons, or tools that extend the functionality of AI platforms, software, or
+            frameworks. They help users automate tasks, integrate AI capabilities into existing systems, and enhance
+            productivity. Whether you're a developer, researcher, or business professional, AI extensions can simplify
+            complex workflows and unlock new possibilities.
+            AI extensions come in various forms, from simple browser add-ons to advanced machine learning plugins
+            tailored for specific industries. As AI continues to evolve, these extensions play a crucial role in
+            bridging the gap between cutting-edge technology and real-world applications.</p>
+    </div>
+    <div class="container introduction">
+        <h2 class="sec">Browser Extensions for AI <span style="color : initial;">&#128279;</span></h2>
+        <p>AI-powered browser extensions enhance productivity, research, and entertainment by integrating smart features
+            directly into web browsers. These tools assist users with writing, transcription, summarization, workflow
+            automation, and more, making daily tasks more efficient.</p>
+        <ul>
+            <li><b>&#x25AA Grammarly - </b>An AI-powered writing assistant that helps users improve grammar, spelling,
+                punctuation, and style in real-time. It provides suggestions for clarity, conciseness, and tone, making
+                it a valuable tool for professionals, students, and content creators.
+                <div class="toggle-text" data-target="image1">Image &#x25BC;</div>
+                <div class="image-container" id="image1">
+                    <img src="s-1.jpg" alt="Grammerly-image">
+                </div>
+            </li>
+            <li><b>&#x25AA Otter.ai - </b>A transcription tool that uses AI to convert audio and video content into text
+                with
+                high accuracy. It is widely used for meetings, interviews, and lectures, enabling users to generate
+                searchable and shareable transcripts effortlessly.
+                <div class="toggle-text" data-target="image2">Image &#x25BC;</div>
+                <div class="image-container" id="image2">
+                    <img src="s-2.png" alt="Otter.ai-image">
+                </div>
+            </li>
+            <li><b>&#x25AA Merlin - </b>An AI-powered Chrome extension that assists users by summarizing long articles,
+                generating content, and answering questions within the browser. It enhances productivity by quickly
+                extracting key information and providing AI-driven insights.
+                <div class="toggle-text" data-target="image3">Image &#x25BC;</div>
+                <div class="image-container" id="image3">
+                    <img src="s-3.webp" alt="Merlin-image">
+                </div>
+            </li>
+            <li><b>&#x25AA Scribe - </b>A workflow automation tool that captures on-screen actions and turns them into
+                step-by-step guides. It is useful for creating tutorials, onboarding new employees, and documenting
+                processes efficiently without manual effort.
+                <div class="toggle-text" data-target="image4">Image &#x25BC;</div>
+                <div class="image-container" id="image4">
+                    <img src="s-4.jpg" alt="Scribe-image">
+                </div>
+            </li>
+            <li><b>&#x25AA Wiseone - </b>An AI-driven reading assistant that helps users analyze and summarize online
+                articles,
+                verify sources, and gain deeper insights. It enhances reading comprehension and research efficiency by
+                providing contextual explanations.
+                <div class="toggle-text" data-target="image5">Image &#x25BC;</div>
+                <div class="image-container" id="image5">
+                    <img src="s-5.jpg" alt="Wiseone-image">
+                </div>
+            </li>
+            <li><b>&#x25AA Tactiq - </b> An AI-powered meeting assistant that captures real-time transcriptions from
+                Google Meet, Zoom, and Microsoft Teams. It also highlights key points and generates meeting summaries to
+                improve note-taking and follow-ups.
+                <div class="toggle-text" data-target="image6">Image &#x25BC;</div>
+                <div class="image-container" id="image6">
+                    <img src="s-6.webp" alt="Tactiq-image">
+                </div>
+            </li>
+        </ul>
+        <h2 class="sec">AI Extensions for Development <span style="color : initial; ">&#128736;</span></h2>
+        <p>AI-powered extensions help developers integrate AI into their projects by providing code suggestions,
+            automation, debugging, and efficiency improvements. These tools enhance productivity, streamline workflows,
+            and assist in AI model development. By leveraging machine learning and AI-driven insights, developers can
+            write, test, and optimize code faster and more accurately.</p>
+        <ul>
+            <li><b>&#x25AA Visual Studio Code AI Extensions - </b>Plugins such as Python, TensorFlow, and Pylance
+                enhance AI development by offering smart suggestions, syntax highlighting, and debugging support within
+                VS Code helping developers write efficient and error-free code while integrating AI frameworks
+                seamlessly.
+                <div class="toggle-text" data-target="image7">Image &#x25BC;</div>
+                <div class="image-container" id="image7">
+                    <img src="s-7.png" alt="vscode-extension-image">
+                </div>
+            </li>
+            <li><b>&#x25AA GitHub Copilot - </b>An AI-powered code completion tool that suggests code snippets, entire
+                functions, and even full implementations, helping developers write code faster and with fewer errors. It
+                learns from millions of open-source projects and adapts to different programming styles.
+                <div class="toggle-text" data-target="image8">Image &#x25BC;</div>
+                <div class="image-container" id="image8">
+                    <img src="s-8.png" alt="GitHub-Copilot-extension-image">
+                </div>
+            </li>
+            <li><b>&#x25AA Kite - </b>A machine learning-based coding assistant that provides real-time code
+                completions, documentation, and AI-driven insights to speed up coding in languages. It enhances
+                developer productivity by reducing the time spent searching for documentation and fixing syntax errors.
+                <div class="toggle-text" data-target="image9">Image &#x25BC;</div>
+                <div class="image-container" id="image9">
+                    <img src="s-9.jpg" alt="Kite-extension-image">
+                </div>
+            </li>
+            <li><b>&#x25AA Tabnine - </b>An AI-powered code assistant that predicts and autocompletes lines or blocks of
+                code using deep learning models, supporting multiple programming languages. It helps developers focus on
+                logic rather than syntax, making coding faster and more efficient.
+                <div class="toggle-text" data-target="image10">Image &#x25BC;</div>
+                <div class="image-container" id="image10">
+                    <img src="s-10.png" alt="Tabnine-languages-supported-list-image">
+                </div>
+            </li>
+            <li><b>&#x25AA Intel OpenVINO Toolkit - </b>An AI extension that optimizes deep learning models for edge and
+                cloud applications, enabling developers to deploy AI efficiently across different hardware platforms. It
+                provides performance optimization and hardware acceleration, making AI integration seamless.
+                <div class="toggle-text" data-target="image11">Image &#x25BC;</div>
+                <div class="image-container" id="image11">
+                    <img src="s-11.png" alt="Intel OpenVINO Toolkit-image">
+                </div>
+            </li>
+            <li><b>&#x25AA CodiumAI- </b> A smart AI-powered extension that assists developers by analyzing code,
+                suggesting optimizations, and generating meaningful tests to improve code quality and efficiency. It
+                helps reduce bugs, automate testing, and ensure robust software development.
+                <div class="toggle-text" data-target="image12">Image &#x25BC;</div>
+                <div class="image-container" id="image12">
+                    <img src="s-12.jpg" alt="CodiumAI-extension-image">
+                </div>
+            </li>
+        </ul>
+        <h2 class="sec">AI Extensions for Business and Productivity <span style="color : initial; ">&#128188;</span>
+        </h2>
+        <p>AI-powered extensions help businesses and professionals streamline workflows, automate repetitive tasks, and
+            improve decision-making. These tools integrate AI capabilities into existing platforms, enhancing efficiency
+            and productivity.</p>
+        <ul>
+            <li><b>&#x25AA Crystal Knows - </b>A personality AI tool that analyzes communication styles and provides
+                insights to enhance sales, leadership, and team collaboration by offering personalized messaging
+                suggestions.
+                <div class="toggle-text" data-target="image13">Image &#x25BC;</div>
+                <div class="image-container" id="image13">
+                    <img src="s-13.jpg" alt="Crystal Knows-image">
+                </div>
+            </li>
+            <li><b>&#x25AA Zapier AI Actions - </b>Enables users to automate workflows by integrating AI models into
+                various apps like Slack, Gmail, and Trello, reducing manual effort and improving task management. It
+                supports thousands of apps, making automation seamless across different business tools.
+                <div class="toggle-text" data-target="image14">Image &#x25BC;</div>
+                <div class="image-container" id="image14">
+                    <img src="s-14.png" alt="Zapier AI Actions-extension-image">
+                </div>
+            </li>
+            <li><b>&#x25AA Fireflies.ai - </b>An AI-powered meeting assistant that transcribes, summarizes, and analyzes
+                conversations from virtual meetings, helping teams stay organized and improve follow-ups.
+                <div class="toggle-text" data-target="image15">Image &#x25BC;</div>
+                <div class="image-container" id="image15">
+                    <img src="s-15.webp" alt="Fireflies.ai-image">
+                </div>
+            </li>
+            <li><b>&#x25AA Salesforce Einstein - </b> A suite of AI-powered CRM tools that provide insights,
+                predictions, and recommendations to help businesses optimize customer relationships and drive sales. It
+                enhances lead scoring, forecasting, and customer engagement with AI-driven analytics.
+                <div class="toggle-text" data-target="image16">Image &#x25BC;</div>
+                <div class="image-container" id="image16">
+                    <img src="s-16.png" alt="Salesforce Einstein-image">
+                </div>
+            </li>
+            <li><b>&#x25AA Grammarly Business - </b>A writing assistant designed for teams and professionals, ensuring
+                clear, concise, and effective communication in emails, reports, and other business documents.
+                <div class="toggle-text" data-target="image17">Image &#x25BC;</div>
+                <div class="image-container" id="image17">
+                    <img src="s-17.webp" alt="grammerly-business-image">
+                </div>
+            </li>
+            <li><b>&#x25AA Notion AI - </b> Enhances the Notion workspace by generating content, summarizing notes, and
+                automating tasks, making collaboration and documentation more efficient. It also helps users brainstorm
+                ideas and refine writing with AI-generated suggestions.
+                <div class="toggle-text" data-target="image18">Image &#x25BC;</div>
+                <div class="image-container" id="image18">
+                    <img src="s-18.webp" alt="Notion AI-image">
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".toggle-text").forEach(item => {
+                item.addEventListener("click", function () {
+                    let targetId = this.getAttribute("data-target");
+                    let targetElement = document.getElementById(targetId);
+
+                    if (targetElement.style.display === "block") {
+                        targetElement.style.display = "none";
+                    } else {
+                        targetElement.style.display = "block";
+                    }
+                });
+            });
+        });
+    </script>
+    <!-------------------------------------------------- Future --------- -->
+    <hr class="hr1">
+    <div class="flowchart-container">
+        <div class="flowchart">
+            <div class="center">AI<br>EXTENSION</div>
+            <div class="box top-green">1. Data Input - Collects and processes information (e.g., text, images, user
+                input).</div>
+            <div class="box right-green">2. AI Processing - Uses machine learning models to analyze and enhance data.
+            </div>
+            <div class="box bottom-green">3. Automation & Decision Making - Suggests actions, automates repetitive
+                tasks, or provides insights.</div>
+            <div class="box left-green">4. Output & Integration - Delivers results into applications like CRM, project
+                management tools, etc.</div>
+        </div>
+    </div>
+
+    <!-------------------------------------------------- Future --------- -->
+    <hr class="hr2">
+    <div class="container mt-4">
+        <h2 class="text-center fw-bold">&#128640; Future of AI Extensions</h2>
+
+        <div class="highlight-box mt-3">
+            &#128293; <strong>Key Insight:</strong> The future of AI extensions is all about accessibility, efficiency,
+            and automation.
+        </div>
+
+        <!-- No-Code AI Tools -->
+        <h3 class="mt-4"> &#128204; No-Code AI Tools</h3>
+        <p>No-code AI platforms are making AI development accessible to non-technical users. These tools allow users to
+            build AI-driven applications without writing code, democratizing AI and accelerating innovation across
+            industries. Platforms like Google's AutoML and Microsoft's Power Platform enable businesses to automate
+            workflows, analyze data, and implement AI-driven decision-making with minimal technical expertise.</p>
+        <div class="arrow"> &#11015;&#65039;</div>
+
+        <!-- Edge AI -->
+        <h3> &#128204; Edge AI</h3>
+        <p>Edge AI moves AI processing closer to the data source, reducing latency and improving efficiency. Instead of
+            relying on cloud-based AI models, edge AI runs directly on devices such as smartphones, IoT sensors, and
+            embedded systems. This trend is particularly valuable for real-time applications like autonomous vehicles,
+            smart healthcare devices, and industrial automation, where low latency is crucial.</p>
+        <div class="arrow"> &#11015;&#65039;</div>
+
+        <!-- AI Automation -->
+        <h3> &#128204; AI-Powered Automation</h3>
+        <p>Hyper-automation, powered by AI, is revolutionizing industries by automating complex processes with minimal
+            human intervention. AI-driven automation tools, such as robotic process automation (RPA) combined with
+            machine learning, enhance efficiency and decision-making in areas like customer service, finance, and supply
+            chain management. As AI continues to improve, we can expect even more sophisticated automation capabilities,
+            enabling businesses to optimize operations at an unprecedented scale.</p>
+
+        <!-- Table for Quick Comparison -->
+        <h3 class="mt-5">&#128269; Quick Comparison</h3>
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Trend</th>
+                    <th>Description</th>
+                    <th>Example Use Case</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>No-Code AI Tools</td>
+                    <td>AI development without coding</td>
+                    <td>AutoML, Power Platform</td>
+                </tr>
+                <tr>
+                    <td>Edge AI</td>
+                    <td>AI running on local devices</td>
+                    <td>Smart IoT, Autonomous cars</td>
+                </tr>
+                <tr>
+                    <td>AI Automation</td>
+                    <td>AI-driven process automation</td>
+                    <td>RPA, AI chatbots</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <footer class="footer">
+        <p>&copy; 2025 AI Chronicles. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
